@@ -1,0 +1,3 @@
+chapter*/**/.terraform
+chapter*/**/*.tfstate
+chapter*/**/*.tfstate.backup
