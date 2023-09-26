@@ -10,7 +10,7 @@ variable "ami_id" {
   default     = "ami-04cb4ca688797756f"
 }
 
-variable "instance_type" {
+variable "defaut_instance_type" {
   description = "The type of EC2 Instances to run (e.g. t2.micro)"
   type        = string
   default     = "t2.micro"
