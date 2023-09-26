@@ -1,0 +1,62 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_autoscaling_group.example (expand)" [label = "aws_autoscaling_group.example", shape = "box"]
+		"[root] aws_dynamodb_table.terraform_locks (expand)" [label = "aws_dynamodb_table.terraform_locks", shape = "box"]
+		"[root] aws_launch_template.example (expand)" [label = "aws_launch_template.example", shape = "box"]
+		"[root] aws_lb.example (expand)" [label = "aws_lb.example", shape = "box"]
+		"[root] aws_lb_listener.http (expand)" [label = "aws_lb_listener.http", shape = "box"]
+		"[root] aws_lb_listener_rule.asg (expand)" [label = "aws_lb_listener_rule.asg", shape = "box"]
+		"[root] aws_lb_target_group.asg (expand)" [label = "aws_lb_target_group.asg", shape = "box"]
+		"[root] aws_s3_bucket.terraform_state (expand)" [label = "aws_s3_bucket.terraform_state", shape = "box"]
+		"[root] aws_s3_bucket_public_access_block.block_public_access (expand)" [label = "aws_s3_bucket_public_access_block.block_public_access", shape = "box"]
+		"[root] aws_s3_bucket_server_side_encryption_configuration.default (expand)" [label = "aws_s3_bucket_server_side_encryption_configuration.default", shape = "box"]
+		"[root] aws_s3_bucket_versioning.name (expand)" [label = "aws_s3_bucket_versioning.name", shape = "box"]
+		"[root] aws_security_group.alb (expand)" [label = "aws_security_group.alb", shape = "box"]
+		"[root] aws_security_group.instance (expand)" [label = "aws_security_group.instance", shape = "box"]
+		"[root] data.aws_subnets.default (expand)" [label = "data.aws_subnets.default", shape = "box"]
+		"[root] data.aws_vpc.default (expand)" [label = "data.aws_vpc.default", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] var.ami_id" [label = "var.ami_id", shape = "note"]
+		"[root] var.instance_type" [label = "var.instance_type", shape = "note"]
+		"[root] var.server_port" [label = "var.server_port", shape = "note"]
+		"[root] aws_autoscaling_group.example (expand)" -> "[root] aws_launch_template.example (expand)"
+		"[root] aws_autoscaling_group.example (expand)" -> "[root] aws_lb_target_group.asg (expand)"
+		"[root] aws_autoscaling_group.example (expand)" -> "[root] data.aws_subnets.default (expand)"
+		"[root] aws_dynamodb_table.terraform_locks (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_launch_template.example (expand)" -> "[root] aws_security_group.instance (expand)"
+		"[root] aws_launch_template.example (expand)" -> "[root] var.ami_id"
+		"[root] aws_launch_template.example (expand)" -> "[root] var.instance_type"
+		"[root] aws_lb.example (expand)" -> "[root] aws_security_group.alb (expand)"
+		"[root] aws_lb.example (expand)" -> "[root] data.aws_subnets.default (expand)"
+		"[root] aws_lb_listener.http (expand)" -> "[root] aws_lb.example (expand)"
+		"[root] aws_lb_listener_rule.asg (expand)" -> "[root] aws_lb_listener.http (expand)"
+		"[root] aws_lb_listener_rule.asg (expand)" -> "[root] aws_lb_target_group.asg (expand)"
+		"[root] aws_lb_target_group.asg (expand)" -> "[root] data.aws_vpc.default (expand)"
+		"[root] aws_lb_target_group.asg (expand)" -> "[root] var.server_port"
+		"[root] aws_s3_bucket.terraform_state (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_s3_bucket_public_access_block.block_public_access (expand)" -> "[root] aws_s3_bucket.terraform_state (expand)"
+		"[root] aws_s3_bucket_server_side_encryption_configuration.default (expand)" -> "[root] aws_s3_bucket.terraform_state (expand)"
+		"[root] aws_s3_bucket_versioning.name (expand)" -> "[root] aws_s3_bucket.terraform_state (expand)"
+		"[root] aws_security_group.alb (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_security_group.instance (expand)" -> "[root] aws_security_group.alb (expand)"
+		"[root] aws_security_group.instance (expand)" -> "[root] var.server_port"
+		"[root] data.aws_subnets.default (expand)" -> "[root] data.aws_vpc.default (expand)"
+		"[root] data.aws_vpc.default (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] output.alb_dns_name (expand)" -> "[root] aws_lb.example (expand)"
+		"[root] output.dynamodb_table_name (expand)" -> "[root] aws_dynamodb_table.terraform_locks (expand)"
+		"[root] output.s3_bucket_arn (expand)" -> "[root] aws_s3_bucket.terraform_state (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_autoscaling_group.example (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_dynamodb_table.terraform_locks (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_lb_listener_rule.asg (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_public_access_block.block_public_access (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_server_side_encryption_configuration.default (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_versioning.name (expand)"
+		"[root] root" -> "[root] output.alb_dns_name (expand)"
+		"[root] root" -> "[root] output.dynamodb_table_name (expand)"
+		"[root] root" -> "[root] output.s3_bucket_arn (expand)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+	}
+}
+
