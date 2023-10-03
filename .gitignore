@@ -1,3 +1,5 @@
 chapter*/**/.terraform
 chapter*/**/*.tfstate
 chapter*/**/*.tfstate.backup
+chapter*/**/*.tfvars
+chapter*/**/*.tfvars.json
