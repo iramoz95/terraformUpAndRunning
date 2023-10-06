@@ -1,0 +1,18 @@
+variable "db_username" {
+  description = "The username for the database"
+  type        = string
+  sensitive   = true
+}
+
+variable "db_password" {
+  description = "The password for the database"
+  type        = string
+  sensitive   = true
+}
+
+variable "allowed_cidr_blocks" {
+  description = "The CIDR blocks allowed to access the database"
+  type        = list(string)
+  sensitive   = true
+}
+
