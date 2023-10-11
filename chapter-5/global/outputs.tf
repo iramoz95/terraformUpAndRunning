@@ -43,4 +43,19 @@ output "all_dynamodb_table_names" {
   description = "The name of the DynamoDB table"
 }
 
+output "for_directive_index_if_strip" {
+  value = <<EOF
+%{~for i, name in var.iam_user_names~}
+${name}%{if i < length(var.iam_user_names) - 1},%{endif},
+%{~endfor~}
+EOF
+}
+
+output "for_directive_index_if_else_strip" {
+  value = <<EOF
+%{~for i, name in var.iam_user_names~}
+${name}%{if i < length(var.iam_user_names) - 1}, %{else}.%{endif}
+%{~endfor~}
+EOF
+}
 
