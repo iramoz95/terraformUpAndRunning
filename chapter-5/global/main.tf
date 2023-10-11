@@ -2,8 +2,9 @@
 # IAM users
 #========================
 module "users" {
-  source     = "../modules/iam-user"
-  user_names = var.iam_user_names
+  source                          = "../modules/iam-user"
+  user_names                      = var.iam_user_names
+  give_ian_cloudwatch_full_access = false
 }
 
 #========================
