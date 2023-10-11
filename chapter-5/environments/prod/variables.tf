@@ -15,13 +15,3 @@ variable "allowed_cidr_blocks" {
   type        = list(string)
   sensitive   = true
 }
-
-variable "autoscaling_schedule_start_time" {
-  description = "The start time of the autoscaling schedule"
-  type        = string
-}
-
-variable "autoscaling_schedule_end_time" {
-  description = "The end time of the autoscaling schedule"
-  type        = string
-}

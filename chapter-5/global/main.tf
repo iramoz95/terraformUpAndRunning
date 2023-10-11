@@ -2,9 +2,8 @@
 # IAM users
 #========================
 module "users" {
-  source    = "../modules/iam-user"
-  count     = length(var.iam_user_names)
-  user_name = var.iam_user_names[count.index]
+  source     = "../modules/iam-user"
+  user_names = var.iam_user_names
 }
 
 #========================

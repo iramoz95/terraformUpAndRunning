@@ -15,15 +15,22 @@ module "rds" {
 #Webserver cluster
 #========================
 module "webserver_cluster" {
-  source        = "../../modules/services/webserver-cluster"
-  cluster_name  = "webservers-stage"
-  db_address    = module.rds.address
-  db_port       = module.rds.port
-  ami_id        = "ami-03a6eaae9938c858c"
-  server_port   = 8080
-  instance_type = "t2.micro"
-  min_size      = 2
-  max_size      = 10
+  source              = "../../modules/services/webserver-cluster"
+  cluster_name        = "webservers-stage"
+  db_address          = module.rds.address
+  db_port             = module.rds.port
+  ami_id              = "ami-03a6eaae9938c858c"
+  server_port         = 8080
+  instance_type       = "t2.micro"
+  min_size            = 2
+  max_size            = 10
+  enabble_autoscaling = false
+
+  customm_tags = {
+    Owner     = "ian"
+    ManagedBy = "terraform"
+  }
+
 
   depends_on = [module.rds]
 }

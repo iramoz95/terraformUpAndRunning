@@ -1,4 +1,4 @@
-variable "user_name" {
+variable "user_names" {
   description = "The name of the IAM user"
-  type        = string
+  type        = list(string)
 }

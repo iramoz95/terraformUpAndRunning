@@ -156,4 +156,39 @@ resource "aws_autoscaling_group" "example" {
     value               = var.cluster_name
     propagate_at_launch = true
   }
+
+  dynamic "tag" {
+    for_each = var.customm_tags
+    content {
+      key                 = tag.key
+      value               = tag.value
+      propagate_at_launch = true
+    }
+  }
+}
+
+resource "aws_autoscaling_schedule" "scale_out_during_business_hours" {
+  count                  = var.enable_autoscaling ? 1 : 0
+  scheduled_action_name  = "scale-out-during-business-hours"
+  min_size               = var.min_size
+  max_size               = var.max_size
+  desired_capacity       = 5
+  recurrence             = "15 10 * * *"
+  start_time             = "2023-10-11T16:15:00Z"
+  end_time               = "2023-10-11T23:59:59Z"
+  time_zone              = "UTC"
+  autoscaling_group_name = aws_autoscaling_group.example.name
+}
+
+resource "aws_autoscaling_schedule" "scale_in_at_night" {
+  count                  = var.enable_autoscaling ? 1 : 0
+  scheduled_action_name  = "scale-in-at-night"
+  min_size               = var.min_size
+  max_size               = var.max_size
+  desired_capacity       = 2
+  recurrence             = "30 10 * * *"
+  start_time             = "2023-10-11T16:30:00Z"
+  end_time               = "2023-10-11T23:59:59Z"
+  time_zone              = "UTC"
+  autoscaling_group_name = aws_autoscaling_group.example.name
 }

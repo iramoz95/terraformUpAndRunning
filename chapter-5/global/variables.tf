@@ -1,7 +1,17 @@
 variable "iam_user_names" {
   description = "Create IAM users with these names"
   type        = list(string)
-  default     = ["ian", "irz"]
+  default     = ["ian", "terraform"]
+}
+
+variable "clouds" {
+  description = "map"
+  type        = map(string)
+  default = {
+    AWS   = "Amazon Web Services",
+    GCP   = "Google Cloud Platform",
+    AZURE = "Microsoft Azure",
+  }
 }
 
 variable "backend_bucket_names" {

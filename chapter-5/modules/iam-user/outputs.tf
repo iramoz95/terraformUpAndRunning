@@ -1,4 +1,7 @@
-output "user_arn" {
-  value       = aws_iam_user.example.arn
-  description = "The ARN of the IAM user"
+output "all_arns" {
+  value = values(aws_iam_user.example)[*].arn
+}
+
+output "all_names" {
+  value = values(aws_iam_user.example)[*].name
 }
