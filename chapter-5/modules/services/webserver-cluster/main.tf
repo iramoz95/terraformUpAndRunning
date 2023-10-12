@@ -124,6 +124,7 @@ resource "aws_security_group" "instance" {
 }
 
 resource "aws_launch_template" "example" {
+  name_prefix   = var.cluster_name
   image_id      = var.ami_id
   instance_type = var.instance_type
 
@@ -134,12 +135,14 @@ resource "aws_launch_template" "example" {
   //user_data = filebase64("./config/user_data.sh")
   user_data = base64encode(templatefile("${path.module}/user-data.sh", {
     server_port = var.server_port
+    server_text = var.server_text
     db_address  = var.db_address
     db_port     = var.db_port
   }))
 }
 
 resource "aws_autoscaling_group" "example" {
+  name                = "${var.cluster_name}-${aws_launch_template.example.name}"
   vpc_zone_identifier = data.aws_subnets.default.ids
   target_group_arns   = [aws_lb_target_group.asg.arn]
   health_check_type   = "ELB"
@@ -148,7 +151,17 @@ resource "aws_autoscaling_group" "example" {
 
   launch_template {
     id      = aws_launch_template.example.id
-    version = aws_launch_template.example.latest_version
+    version = "$Latest"
+  }
+
+  # Wait for at least this many instances to pass health checks before
+  # considering the ASG deployment complete
+  min_elb_capacity = var.min_size
+
+  # When replacing this ASG, create the replacement first, and only delete the
+  # original after
+  lifecycle {
+    create_before_destroy = true
   }
 
   tag {

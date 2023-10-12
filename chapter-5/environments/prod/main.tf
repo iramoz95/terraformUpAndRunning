@@ -21,6 +21,7 @@ module "webserver_cluster" {
   db_port            = module.rds.port
   ami_id             = "ami-03a6eaae9938c858c"
   server_port        = 8080
+  server_text        = "Hello, World - Env: Prod"
   instance_type      = "t2.micro"
   min_size           = 2
   max_size           = 10

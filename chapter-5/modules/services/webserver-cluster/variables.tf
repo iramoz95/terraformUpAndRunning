@@ -48,3 +48,8 @@ variable "enable_autoscaling" {
   description = "If set to true, enable auto scaling"
   type        = bool
 }
+
+variable "server_text" {
+  description = "The text the server should return"
+  type        = string
+}

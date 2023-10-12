@@ -6,12 +6,11 @@ dnf update -y
 dnf install -y httpd.x86_64
 
 #change httpd default port
-port=${server_port}
 config_file="/etc/httpd/conf/httpd.conf"
 # Check if the configuration file exists
 if [ -f "$config_file" ]; then        
-    sudo sed -i "s/Listen 80/Listen $port/" "$config_file"    
-    echo "Apache port changed to $port"
+    sudo sed -i "s/Listen 80/Listen ${server_port}/" "$config_file"    
+    echo "Apache port changed to ${server_port}"
 else
     echo "Apache configuration file not found."
 fi
@@ -21,7 +20,8 @@ systemctl start httpd.service
 systemctl enable httpd.service
 
 cat > /var/www/html/index.html <<EOF
-<h1>Hello world from $(hostname -f)</h1>
+<h1>${server_text}</h1>
+<h2>Hostname: $(hostname -f)</h2>
 <p>Server port: ${server_port}</p>
 <p>DB address: ${db_address}</p>
 <p>DB port: ${db_port}</p>
