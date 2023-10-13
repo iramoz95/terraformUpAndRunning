@@ -142,7 +142,8 @@ resource "aws_launch_template" "example" {
 }
 
 resource "aws_autoscaling_group" "example" {
-  name                = "${var.cluster_name}-${aws_launch_template.example.name}"
+  # name                = "${var.cluster_name}-${aws_launch_template.example.name}"
+  name                = var.cluster_name
   vpc_zone_identifier = data.aws_subnets.default.ids
   target_group_arns   = [aws_lb_target_group.asg.arn]
   health_check_type   = "ELB"
@@ -154,14 +155,12 @@ resource "aws_autoscaling_group" "example" {
     version = "$Latest"
   }
 
-  # Wait for at least this many instances to pass health checks before
-  # considering the ASG deployment complete
-  min_elb_capacity = var.min_size
-
-  # When replacing this ASG, create the replacement first, and only delete the
-  # original after
-  lifecycle {
-    create_before_destroy = true
+  # Use instance refresh to roll out changes to the ASG for Zero Downtime
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 100
+    }
   }
 
   tag {
