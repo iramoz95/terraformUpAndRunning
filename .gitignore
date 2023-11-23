@@ -1,4 +1,5 @@
 chapter*/**/.terraform
+chapter*/**/*.terraform.lock.hcl
 chapter*/**/*.tfstate
 chapter*/**/*.tfstate.backup
 chapter*/**/*.tfvars
